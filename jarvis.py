@@ -2,7 +2,10 @@ import pyttsx3
 import requests
 import speech_recognition as sr
 import datetime
-
+import os
+import cv2
+import random
+from requests import get
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 
@@ -66,3 +69,35 @@ if __name__ == '__main__':
     query = takecommand().lower()
     if "give news" in query:
         news()
+    # speak("Good Morning Sir, the code is working!")
+    while True:
+        query = takecommand().lower()
+        #logic building for tasks
+        if "open notepad" in query:
+            npath = "C:\\Program Files\WindowsApps\\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe"
+            os.startfile(npath)
+        
+        if "open spotify" in query:
+            npath = "C:\\Users\\dashi\\AppData\\Local\\Microsoft\WindowsApps\\Spotify.exe"
+            os.startfile(npath)
+        
+        if "please stop" in query:
+            break
+        #music section
+
+        if "play music" in query:
+            music_dir = "D:\\music"
+            songs = os.listdir(music_dir)
+            os.startfile(os.path.join(music_dir,songs[0]))
+
+        elif "shuffle music" in query:
+            music_dir = "D:\\music"
+            songs = os.listdir(music_dir)
+            rd = random.choice(songs)
+            os.startfile(os.path.join(music_dir,rd))
+
+        elif "show me ip address" in query:
+            ip = get('https://api.ipify.org').text
+            speak(f"your IP Address is {ip}")
+        
+
