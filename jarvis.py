@@ -49,4 +49,4 @@ if __name__ == '__main__':
     wish()
     takecommand()
     speak("Good Morning Sir, the code is working!")
-    #written by rog
+    #Collaboration by Deep and rohit
