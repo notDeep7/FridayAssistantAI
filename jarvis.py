@@ -1,7 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 import datetime
-
+import os
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 
@@ -47,7 +47,21 @@ def wish():
 
 if __name__ == '__main__':
     wish()
-    takecommand()
     speak("Good Morning Sir, the code is working!")
+    while True:
+        query = takecommand().lower()
+        #logic building for tasks
+        if "open notepad" in query:
+            npath = "C:\\Program Files\WindowsApps\\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe"
+            os.startfile(npath)
+        
+        if "open spotify" in query:
+            npath = "C:\\Users\\dashi\\AppData\\Local\\Microsoft\WindowsApps\\Spotify.exe"
+            os.startfile(npath)
+        
+        
+    
+      
+
     #Collaboration by Deep and rohit
     #hai hai
