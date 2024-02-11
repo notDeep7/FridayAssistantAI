@@ -1,4 +1,5 @@
 import pyttsx3
+import requests
 import speech_recognition as sr
 import datetime
 import os
