@@ -2,6 +2,8 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import os
+import cv2
+import random
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 
@@ -47,7 +49,7 @@ def wish():
 
 if __name__ == '__main__':
     wish()
-    speak("Good Morning Sir, the code is working!")
+    # speak("Good Morning Sir, the code is working!")
     while True:
         query = takecommand().lower()
         #logic building for tasks
@@ -59,9 +61,21 @@ if __name__ == '__main__':
             npath = "C:\\Users\\dashi\\AppData\\Local\\Microsoft\WindowsApps\\Spotify.exe"
             os.startfile(npath)
         
-        
-    
-      
+        if "please stop" in query:
+            break
+        #music section
 
-    #Collaboration by Deep and rohit
-    #hai hai
+        if "play music" in query:
+            music_dir = "D:\\music"
+            songs = os.listdir(music_dir)
+            os.startfile(os.path.join(music_dir,songs[0]))
+
+        elif "shuffle music" in query:
+            music_dir = "D:\\music"
+            songs = os.listdir(music_dir)
+            rd = random.choice(songs)
+            os.startfile(os.path.join(music_dir,rd))
+
+
+        
+
