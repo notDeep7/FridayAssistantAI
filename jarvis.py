@@ -67,8 +67,7 @@ def news():
 if __name__ == '__main__':
     wish()
     query = takecommand().lower()
-    if "give news" in query:
-        news()
+    
     # speak("Good Morning Sir, the code is working!")
     while True:
         query = takecommand().lower()
@@ -99,5 +98,9 @@ if __name__ == '__main__':
         elif "show me ip address" in query:
             ip = get('https://api.ipify.org').text
             speak(f"your IP Address is {ip}")
+            
+        elif "give news" in query:
+            news()
+            
         
 
