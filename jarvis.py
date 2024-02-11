@@ -4,6 +4,7 @@ import datetime
 import os
 import cv2
 import random
+from requests import get
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 
@@ -76,6 +77,8 @@ if __name__ == '__main__':
             rd = random.choice(songs)
             os.startfile(os.path.join(music_dir,rd))
 
-
+        elif "show me ip address" in query:
+            ip = get('https://api.ipify.org').text
+            speak(f"your IP Address is {ip}")
         
 
