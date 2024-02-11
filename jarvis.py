@@ -48,6 +48,21 @@ def wish():
     elif hour >15 and hour<=24:
         speak("Good Night Sir")
 
+
+    
+def news():
+    main_url = 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=4216d08a7101416aa1afd709f9e37d87'
+    
+    main_page = requests.get(main_url).json()
+    articles = main_page["articles"]
+    head = []
+    day = ["first", "second", 'third']
+    for ar in articles:
+        head.append(ar["title"])
+        
+    for i in range(len(day)):
+        speak(f"today's {day[i]} news is: {head[i]}")
+    
 if __name__ == '__main__':
     wish()
     # speak("Good Morning Sir, the code is working!")
