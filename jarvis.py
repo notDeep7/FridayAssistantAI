@@ -96,5 +96,7 @@ if __name__ == '__main__':
         elif "show me ip address" in query:
             ip = get('https://api.ipify.org').text
             speak(f"your IP Address is {ip}")
-        
+            
+        elif "give news" in query:
+            news()
 
