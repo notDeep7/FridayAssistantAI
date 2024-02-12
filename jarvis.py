@@ -97,12 +97,17 @@ if __name__ == '__main__':
         if "open notepad" in query:
             npath = "C:\\Program Files\WindowsApps\\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe"
             os.startfile(npath)
+        if "close notepad" in query:
+            os.system("taskkill /f /im notepad.exe")
 #OPENING SPOTIFY      
         if "open spotify" in query:
             npath = "C:\\Users\\dashi\\AppData\\Local\\Microsoft\WindowsApps\\Spotify.exe"
             os.startfile(npath)
+        if "close spotify" in query:
+            os.system("taskkill /f /im Spotify.exe")
 #STOPPING THE CODE       
-        if "please stop" in query:
+        if "you can stop now" in query:
+            speak('Thank you sir, and have a great day!')
             break
 
 #PLAY THE MUSIC
@@ -176,3 +181,14 @@ if __name__ == '__main__':
                 print(e)
                 speak("sorry sir,i am not able to send!")
 
+#SHUTDOWN THE SYSTEM
+        elif "shut down the system" in query:
+            os.system("shutdown /s /t 5")
+
+#RESTART THE SYSTEM
+        elif "restart the system" in query:
+            os.system("shutdown /r /t 5")
+
+#SLEEP THE SYSTEM
+        elif "sleep the system" in query:
+            os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
