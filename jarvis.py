@@ -8,21 +8,25 @@ import random
 import wikipedia
 import webbrowser
 import pywhatkit as pwt
+import smtplib
 from youtubesearchpython import VideosSearch
 from requests import get
+#INITIALIZING THE ENGINE
 engine = pyttsx3.init('sapi5')
+#INITIALIZING THE VOICES IN THE ENGINE
 voices = engine.getProperty('voices')
+#SETTING THE VOICES
 
 engine.setProperty('voice', voices[1].id)
 
-#converting text to speech
+#CONVERTING TEXT TO SPEECH (OUTPUT SPEECH)
 def speak(audio):
     engine.say(audio)
     print(audio)
     engine.runAndWait()
 
-#converting voice to text
-    
+#CONVERTING VOICE TOM TEXT (INPUT COMMAND)
+    #SPEECH RECOGNIZATION
 def takecommand():
     r= sr.Recognizer()
     with sr.Microphone() as source:
@@ -40,7 +44,7 @@ def takecommand():
         return "none"
     return query
 
-#wish function
+#WISH FUNCTION
 
 def wish():
     hour =  int(datetime.datetime.now().hour)
@@ -54,6 +58,18 @@ def wish():
         speak("Good Night Sir")
 
 
+#EMAIL SENDER USING SMTP
+        
+
+def sendEmail(to,content):
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.login('sender_email','your_email_app_password')
+    server.sendmail('sender_email',to,content)
+    server.close()
+
+#NEWS GENERATOR 
     
 def news():
     main_url = 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=4216d08a7101416aa1afd709f9e37d87'
@@ -67,39 +83,44 @@ def news():
         
     for i in range(len(day)):
         speak(f"today's {day[i]} news is: {head[i]}")
+
+#MAIN LOBBY
     
 if __name__ == '__main__':
     wish()
     # speak("Good Morning Sir, the code is working!")
     while True:
         query = takecommand().lower()
-#logic building for tasks
+
+#LOGIC BUILDING FOR TASKS
         
         if "open notepad" in query:
             npath = "C:\\Program Files\WindowsApps\\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe"
             os.startfile(npath)
-        
+#OPENING SPOTIFY      
         if "open spotify" in query:
             npath = "C:\\Users\\dashi\\AppData\\Local\\Microsoft\WindowsApps\\Spotify.exe"
             os.startfile(npath)
-        
+#STOPPING THE CODE       
         if "please stop" in query:
             break
 
-#play the music 
+#PLAY THE MUSIC
 
         if "play music" in query:
             music_dir = "D:\\music"
             songs = os.listdir(music_dir)
             os.startfile(os.path.join(music_dir,songs[0]))
 
+#SHUFFLE MUSIC USING RANDOM()  
+            
         elif "shuffle music" in query:
             music_dir = "D:\\music"
             songs = os.listdir(music_dir)
             rd = random.choice(songs)
             os.startfile(os.path.join(music_dir,rd))
 
-#show your ip address
+#SHOW YOUR IP ADDRESS
             
         elif "show me ip address" in query:
             ip = get('https://api.ipify.org').text
@@ -108,7 +129,7 @@ if __name__ == '__main__':
         elif "give news" in query:
             news()
 
-#search anything on wikipedia
+#SEARCH ANYTHING ON WIKIPEDIA
             
         elif "wikipedia" in query:
             speak("Searching in wikipedia...")
@@ -117,7 +138,7 @@ if __name__ == '__main__':
             speak("according to wikipedia")
             speak(results)
         
-#Play videos on youtube
+#PLAY VIDEOS ON YOUTUBE
             
         elif "play song on youtube" in query:
             # webbrowser.open("www.youtube.com")
@@ -125,3 +146,33 @@ if __name__ == '__main__':
             cm = takecommand().lower()
             # webbrowser.open(f"{cm}")
             pwt.playonyt(f"{cm}")
+
+#SEARCH ANYTHING IN GOOGLE
+            
+        elif "search on google" in query:
+            
+            speak("What should i search sir?")
+            cm = takecommand().lower()
+            pwt.search(f"{cm}")
+
+#SEND MESSAGE THROUGH WHATSAPP
+            
+        elif "send message" in query:
+            speak("What message should i send?")
+            cm = takecommand().lower()
+            pwt.sendwhatmsg("+917908963371",f"{cm}",8,28)
+
+#SEND EMAIL THROUGH SMTP 
+            
+        elif "send email" in query:
+            try:
+                speak("What should i say?")
+                content = takecommand().lower()
+                to = "receiver_email"
+                sendEmail(to,content)
+                speak("Email has been sent to the user")
+
+            except Exception as e:
+                print(e)
+                speak("sorry sir,i am not able to send!")
+
