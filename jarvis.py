@@ -13,6 +13,7 @@ import smtplib
 import pyautogui as pag
 from youtubesearchpython import VideosSearch
 from requests import get
+import openai
 #INITIALIZING THE ENGINE
 engine = pyttsx3.init('sapi5')
 #INITIALIZING THE VOICES IN THE ENGINE
@@ -20,6 +21,17 @@ voices = engine.getProperty('voices')
 #SETTING THE VOICES
 
 engine.setProperty('voice', voices[1].id)
+
+#FETCHING COOKIES OF BARD
+openai.api_key = "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"
+
+def chat_with_gpt(prompt):
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages = [{"role":"user","content":prompt}]
+
+    )
+    return response.choices[0].message.content.strip()
 
 #CONVERTING TEXT TO SPEECH (OUTPUT SPEECH)
 def speak(audio):
@@ -201,4 +213,7 @@ if __name__ == '__main__':
             pag.press("tab")
             time.sleep(1)
             pag.keyUp("alt")
-
+        
+        else:
+            response = chat_with_gpt(query)
+            speak(response)
