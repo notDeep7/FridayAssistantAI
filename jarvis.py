@@ -1,3 +1,4 @@
+import time
 import pyttsx3
 import requests
 import speech_recognition as sr
@@ -9,6 +10,7 @@ import wikipedia
 import webbrowser
 import pywhatkit as pwt
 import smtplib
+import pyautogui as pag
 from youtubesearchpython import VideosSearch
 from requests import get
 #INITIALIZING THE ENGINE
@@ -192,3 +194,11 @@ if __name__ == '__main__':
 #SLEEP THE SYSTEM
         elif "sleep the system" in query:
             os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+
+#SWITCH THE WINDOW
+        elif "switch the window" in query:
+            pag.keyDown("alt")
+            pag.press("tab")
+            time.sleep(1)
+            pag.keyUp("alt")
+
