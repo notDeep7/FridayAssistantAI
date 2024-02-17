@@ -23,7 +23,7 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
 #FETCHING COOKIES OF BARD
-openai.api_key = "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"
+openai.api_key = ""
 
 def chat_with_gpt(prompt):
     response = openai.chat.completions.create(
@@ -214,6 +214,14 @@ if __name__ == '__main__':
             time.sleep(1)
             pag.keyUp("alt")
         
+
+        elif "refresh the window" in query:
+            pag.hotkey('f5')
+            speak("refreshing done sir!")
+
+        elif "close the window" in query:
+            pag.hotkey('alt','f4')
+            speak("closing done sir!")
         else:
             response = chat_with_gpt(query)
             speak(response)
